@@ -1,0 +1,2 @@
+filename;spec;falsified;time;obj_best;num_sim
+narmamaglev_v1_breach_NN1_1_3_cmaes;alw_[0, 18]((not (abs(Pos[t] - Ref[t]) <= 0.001+ 0.04*abs(Ref[t])))=> ev_[0, 2] (alw_[0, 1] (abs(Pos[t] - Ref[t]) <= 0.001+ 0.04*abs(Ref[t]))));0;8.173413808;0.0153219393623218;9

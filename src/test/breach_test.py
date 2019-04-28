@@ -19,9 +19,12 @@ algopath = ''
 trials = ''
 timeout = ''
 max_sim = ''
-addpath = []
+#addpath = []
 
-with open(sys.argv[1],'r') as conf:
+conf_file = sys.argv[1]
+script_file = sys.argv[2]
+
+with open(conf_file,'r') as conf:
 	for line in conf.readlines():
 		argu = line.strip().split()
 		if status == 0:
@@ -56,8 +59,8 @@ with open(sys.argv[1],'r') as conf:
 				timeout = argu[0]
 			elif arg == 'max_sim':
 				max_sim  = argu[0]
-			elif arg == 'addpath':
-				addpath.append(argu[0])
+#			elif arg == 'addpath':
+#				addpath.append(argu[0])
 			elif arg == 'loadfile':
 				loadfile = argu[0]
 			else:
@@ -72,13 +75,13 @@ for ph in phi_str:
 			property = ph.split(';')
 			filename = model+ '_breach_' + property[0]+'_' + str(cp)  +'_' + opt 
 			param = '\n'.join(parameters)
-			with open('../benchmarks/'+filename,'w') as bm:
+			with open(script_file,'w') as bm:
 				bm.write('#!/bin/sh\n')
 				bm.write('csv=$1\n')
 				bm.write('matlab -nodesktop -nosplash <<EOF\n')
 				bm.write('clear;\n')
-				for ap in addpath:
-					bm.write('addpath(genpath(\'' + ap + '\'));\n')
+				#for ap in addpath:
+				bm.write('addpath(genpath(\'' + '.' + '\'));\n')
 				if loadfile!= '':
 					bm.write('load ' + loadfile + '\n')
 				bm.write('InitBreach;\n\n')
@@ -100,6 +103,7 @@ for ph in phi_str:
 		
 				bm.write('trials = ' + trials + ';\n')	
 				bm.write('filename = \''+filename+'\';\n')
+				bm.write('specID = \'' + property[0] + '\';\n')
 				bm.write('algorithm = \'Breach\';\n')
 				bm.write('falsified = [];\n')
 				bm.write('time = [];\n')
@@ -136,7 +140,13 @@ for ph in phi_str:
 					bm.write(';filename')
 				bm.write('};\n')
 
-				bm.write('result = table(filename, spec, falsified, time,  obj_best, num_sim);\n')
+
+				bm.write('specID = {specID')
+				for j in range(1,n_trials):
+					bm.write(';specID')
+				bm.write('};\n')
+
+				bm.write('result = table(filename, specID, spec, falsified, time,  obj_best, num_sim);\n')
 				
 				bm.write('writetable(result,\'$csv\',\'Delimiter\',\';\');\n')
 				bm.write('quit\n')

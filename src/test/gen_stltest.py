@@ -16,12 +16,14 @@ phi_type = ''
 input_name = []
 input_range = []
 
-addpath = []
+#addpath = []
 trials = ''
 status = 0
 
+conf_file = sys.argv[1]
+script_file = sys.argv[2]
 
-with open(sys.argv[1], 'r') as conf:
+with open(conf_file, 'r') as conf:
 	for line in conf.readlines():
 		argu = line.strip().split()
 		if status == 0:
@@ -50,8 +52,8 @@ with open(sys.argv[1], 'r') as conf:
 				input_name.append(argu[0])
 			elif arg == 'input_range':
 				input_range.append([float(argu[0]), float(argu[1])])
-			elif arg == 'addpath':
-				addpath.append(argu[0])
+#			elif arg == 'addpath':
+#				addpath.append(argu[0])
 			elif arg == 'parameters':
 				parameters.append(argu[0])
 			elif arg == 'trials':
@@ -79,13 +81,13 @@ for ph in phi_str:
 			
 			property = ph.split(';')
 			filename = model + '_' + algorithm + '_' + property[0] + '_'+ str(c) + '_' + str(bd[0])+'_'+ str(bd[1])
-			with open('../benchmarks/' + filename, 'w')	as bm:
+			with open(script_file, 'w')	as bm:
 				bm.write('#!/bin/sh\n')
 				bm.write('csv=$1\n')
 				bm.write('matlab -nodesktop -nosplash <<EOF\n')
 				bm.write('clear;\n')
-				for ap in addpath:
-					bm.write('addpath(genpath(\'' + ap + '\'));\n')
+			#	for ap in addpath:
+				bm.write('addpath(genpath(\'' + '.' + '\'));\n')
 	       
 				for para in parameters:
 					bm.write(para+'\n')
@@ -142,11 +144,16 @@ for ph in phi_str:
 				for j in range(1, int(trials)):
 					bm.write(';algorithm')
 				bm.write('};\n')
+
+				bm.write('specID = {property[0]')
+				for j in range(1, int(trials)):
+					bm.write(';property[0]')
+				bm.write('};\n')
 				bm.write('scalarset = scalar*ones(trials, 1);\n')
 				bm.write('budgetset = budget*ones(trials, 1);\n')
 				bm.write('budget_unitset = budget_unit*ones(trials, 1);\n')	
 	
-				bm.write('result = table(phi_strset, algorithmset, scalarset, budgetset, budget_unitset, falsified, total_time, numsim);\n')
+				bm.write('result = table(specID, phi_strset, algorithmset, scalarset, budgetset, budget_unitset, falsified, total_time, numsim);\n')
 				bm.write('writetable(result, \'$csv\', \'Delimiter\', \';\');\n')
 				bm.write('quit\n')
 				bm.write('EOF\n')

@@ -1,0 +1,49 @@
+#!/bin/sh
+csv=$1
+matlab -nodesktop -nosplash <<EOF
+clear;
+addpath(genpath('.'));
+InitBreach;
+
+
+mdl = 'Autotrans_shift';
+Br = BreachSimulinkSystem(mdl);
+Br.Sys.tspan =0:.01:30;
+input_gen.type = 'UniStep';
+input_gen.cp = 5;
+Br.SetInputGen(input_gen);
+for cpi = 0:input_gen.cp -1
+	throttle_sig = strcat('throttle_u',num2str(cpi));
+	Br.SetParamRanges({throttle_sig},[0.0 100.0]);
+	brake_sig = strcat('brake_u',num2str(cpi));
+	Br.SetParamRanges({brake_sig},[0.0 325.0]);
+end
+spec = 'alw_[0,30]((not (gear[t] == 4)) or RPM[t]> 700)';
+phi = STL_Formula('phi',spec);
+trials = 1;
+filename = 'Autotrans_shift_breach_AT3_1_5_cmaes';
+algorithm = 'Breach';
+falsified = [];
+time = [];
+obj_best = [];
+num_sim = [];
+for n = 1:trials
+	falsif_pb = FalsificationProblem(Br,phi);
+	falsif_pb.max_time = 600;
+	falsif_pb.setup_solver('cmaes');
+	falsif_pb.solve();
+	if falsif_pb.obj_best < 0
+		falsified = [falsified;1];
+	else
+		falsified = [falsified;0];
+	end
+	num_sim = [num_sim;falsif_pb.nb_obj_eval];
+	time = [time;falsif_pb.time_spent];
+	obj_best = [obj_best;falsif_pb.obj_best];
+end
+spec = {spec};
+filename = {filename};
+result = table(filename, spec, falsified, time,  obj_best, num_sim);
+writetable(result,'$csv','Delimiter',';');
+quit
+EOF

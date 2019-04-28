@@ -68,13 +68,27 @@ __algorithm = [_a.strip() for _a in _algorithm]
 repeating = raw_input('Please input repeating times; default value is 30\n---------------------------------\n')
 
 
-config_path = 'test/config/'+datetime.now().strftime("%Y%m%d%H%M%S")
+sys_time = datetime.now().strftime("%Y%m%d%H%M%S")
+config_path = 'test/config/' + sys_time
+script_path = 'test/script/' + sys_time
+tmpresult_path = 'test/result_tmp/' + sys_time
+result_path = 'result/' + sys_time
+
 os.mkdir(config_path)
+os.mkdir(script_path)
+os.mkdir(tmpresult_path)
+os.mkdir(result_path)
+
 for sp in __speclist:
 	for al in __algorithm:
 #mkdir, name is like just system time, and generate one config file for each configuration.
 
-		conf_name = config_path + '/' + sp  + '-' + al + '-' + repeating + '.config'
+		_instance_name = sp  + '-' + al + '-' + repeating
+		conf_name = config_path + '/' + _instance_name + '.config'
+		script_name = script_path + '/' + _instance_name
+		tmpresult_name = tmpresult_path + '/' + _instance_name + '.csv'
+		result_name = result_path + '/' + _instance_name + '.csv'
+
 		_sp = sp.split('_') #e.g., ['AT1','2']; ['AT1','2^10']
 		
 
@@ -148,7 +162,20 @@ for sp in __speclist:
 					conf_w.write('parameters ' + str(param_num_dict[mdl_abbr]) + '\n')
 					conf_w.write(parameter_dict[mdl_abbr])
 
-
-
-
-	
+		if al == 'Breach':
+			os.system('python src/test/breach_test.py ' + conf_name + ' ' + script_name)
+		else:
+			os.system('python src/test/gen_stltest.py ' + conf_name + ' ' + script_name)
+		os.system('chmod 744 ' + script_name)
+		
+		os.system(script_name + ' ' + tmpresult_name)
+		os.system('rm *.slxc')
+		os.system('rm *.dat')
+		os.system('rm *.mat')
+		os.system('rm -rf slprj/')
+		
+		if al == 'Breach':
+			os.system('python src/proc/analyze_breach.py ' + tmpresult_name + ' ' + result_name + ' ' + repeating)
+		else:
+			os.system('python src/proc/analyze_pa.py ' + tmpresult_name + ' ' + result_name + ' ' + repeating)
+		

@@ -1,0 +1,4 @@
+filename;spec;falsified;time;obj_best;num_sim
+Autotrans_shift_breach_AT1_1_5_cmaes;alw_[0,30]((gear[t] == 3 => speed[t] > 20.6));0;20.157627867;1;12
+Autotrans_shift_breach_AT1_1_5_cmaes;alw_[0,30]((gear[t] == 3 => speed[t] > 20.6));0;17.470765419;1;12
+Autotrans_shift_breach_AT1_1_5_cmaes;alw_[0,30]((gear[t] == 3 => speed[t] > 20.6));0;17.606704196;1;12

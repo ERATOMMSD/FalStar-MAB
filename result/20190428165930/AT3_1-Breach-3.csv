@@ -1,0 +1,2 @@
+algorithm;specID;spec;successfully falsified rate (SR);time
+Breach;AT3_1;alw_[0,30]((not (gear[t] == 4)) or RPM[t]> 700);3;7.954238767

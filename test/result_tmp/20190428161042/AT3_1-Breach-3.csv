@@ -1,0 +1,4 @@
+filename;specID;spec;falsified;time;obj_best;num_sim
+Autotrans_shift_breach_AT3_1_5_cmaes;AT3_1;alw_[0,30]((not (gear[t] == 4)) or RPM[t]> 700);1;6.488283345;-1;3
+Autotrans_shift_breach_AT3_1_5_cmaes;AT3_1;alw_[0,30]((not (gear[t] == 4)) or RPM[t]> 700);1;4.684171507;-1;3
+Autotrans_shift_breach_AT3_1_5_cmaes;AT3_1;alw_[0,30]((not (gear[t] == 4)) or RPM[t]> 700);1;5.865220959;-1;4
