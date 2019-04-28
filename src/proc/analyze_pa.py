@@ -27,6 +27,9 @@ with open(outfile,'w') as f:
 			data = line.strip().split(';')
 			status = status + 1
 			algorithm = 'MAB-UCB' if data[algo_idx] == 'UCB1' else 'MAB-epsilon-greedy'
+			specID = data[specID_idx]
+			spec = data[spec_idx]
+
 			valid = (int(data[fal_idx]) == 1) and (float(data[time_idx])<610)
 			fal = (fal + 1) if valid else fal
 			time = (time + float(data[time_idx])) if valid else time

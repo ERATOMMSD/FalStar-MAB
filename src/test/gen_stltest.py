@@ -29,7 +29,7 @@ with open(conf_file, 'r') as conf:
 		if status == 0:
 			status = 1
 			arg = argu[0]
-			print arg
+#			print arg
 			linenum = int(argu[1])
 		elif status == 1:
 			linenum = linenum - 1
@@ -104,6 +104,7 @@ for ph in phi_str:
 				bm.write('budget_unit = ' + bd[1] + ';\n')
 				bm.write('scalar = ' + c + ';\n')
 #		bm.write('budget_pre = '+ budget_pre + ';\n')
+				bm.write('specID = \'' + property[0] +'\';\n')
 				bm.write('algorithm = \''+ algorithm + '\';\n\n')
 				bm.write('input_gen.type = \'UniStep\';\n')
 				bm.write('input_gen.cp = ' + str(controlpoints) + ';\n')
@@ -145,9 +146,9 @@ for ph in phi_str:
 					bm.write(';algorithm')
 				bm.write('};\n')
 
-				bm.write('specID = {property[0]')
+				bm.write('specID = {specID')
 				for j in range(1, int(trials)):
-					bm.write(';property[0]')
+					bm.write(';specID')
 				bm.write('};\n')
 				bm.write('scalarset = scalar*ones(trials, 1);\n')
 				bm.write('budgetset = budget*ones(trials, 1);\n')
