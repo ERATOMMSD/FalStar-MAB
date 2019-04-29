@@ -20,10 +20,13 @@ e.g.: Breach;MAB_u
 # Install
 ## Prepare
 1. make sure that Matlab directory is in your system path.
+
 Mac OS:  write to ~/.bash_profile 
+
 Linux:  write to ~/.bashrc
 
-export PATH=$PATH:[your Matlab path]/bin
+'export PATH=$PATH:[your Matlab path]/bin'
+
 and restart the console.
 
 sanity check: type 'matlab' in commandline and you can open Matlab
