@@ -81,6 +81,13 @@ for ph in phi_str:
 				bm.write('matlab -nodesktop -nosplash <<EOF\n')
 				bm.write('clear;\n')
 				#for ap in addpath:
+
+				bm.write('brpath_i = which(\'InitBreach\');\n')
+				bm.write('while ~isempty(brpath_i)\n')
+				bm.write('\tbrpath = replace(brpath_i, \'InitBreach.m\',\'\');\n')
+				bm.write('\trmpath(brpath);\n')
+				bm.write('\tbrpath_i = which(\'InitBreach\');\n')
+				bm.write('end\n')
 				bm.write('addpath(genpath(\'' + '.' + '\'));\n')
 				if loadfile!= '':
 					bm.write('load ' + loadfile + '\n')
