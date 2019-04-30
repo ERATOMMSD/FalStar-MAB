@@ -161,7 +161,7 @@ for ph in phi_str:
 				bm.write('budget_unitset = budget_unit*ones(trials, 1);\n')	
 	
 				bm.write('result = table(specID, phi_strset, algorithmset, scalarset, budgetset, budget_unitset, falsified, total_time, numsim);\n')
-				bm.write('writetable(result, \'$csv\', \'Delimiter\', \';\');\n')
+				bm.write('writetable(result, \'$csv\', \'Delimiter\', \';\')\n')
 				bm.write('quit\n')
 				bm.write('EOF\n')
 

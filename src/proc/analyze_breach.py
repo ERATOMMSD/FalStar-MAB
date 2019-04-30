@@ -14,7 +14,10 @@ with open(outfile,'w') as f:
 		time = 0.0
 #	numsim = 0
 	#f.write(lines[0].strip()+'\n')
-		f.write('algorithm;specID;spec;successfully falsified rate (SR);time\n')
+		head = 'algorithm;specID;success rate (SR);time\n'
+		f.write(head)
+		print '-----------------------------------------\n'
+		print head
 	
 		first_line = lines[0]
 		_data = first_line.strip().split(';')
@@ -28,7 +31,7 @@ with open(outfile,'w') as f:
 
 			status = status + 1
 			specID = data[specID_idx]
-			spec = data[spec_idx]
+#			spec = data[spec_idx]
 		
 			fal = fal + int(data[fal_idx])
 			time = (time + float(data[time_idx])) if int(data[fal_idx])==1 else time
@@ -38,7 +41,8 @@ with open(outfile,'w') as f:
 		
 				time = (time/fal) if fal != 0 else -1
 #		numsim = (numsim/fal) if fal != 0 else -1
-				row = 'Breach;'+ specID + ';' + spec + ';'+str(fal)+';'+str(time)#+';'+str(-1) + ';'+str(numsim)
+				row = 'Breach;'+ specID + ';'+str(fal)+ '/' + _repeat +';'+str(time)#+';'+str(-1) + ';'+str(numsim)
+				print row + '\n'
 				f.write(row+'\n')
 				fal = 0
 				time = 0

@@ -38,7 +38,6 @@ sanity check: type 'matlab' in commandline and you can open Matlab
 
 2. (Just in case) Install Breach (src/breach_1213/): follow the instructions of Breach
 - Setup a C/C++ compiler using mex -setup
-- add path to Breach folder 
 - Run InstallBreach
 - (Optional) save path 
 

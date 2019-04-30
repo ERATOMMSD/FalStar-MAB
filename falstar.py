@@ -103,9 +103,9 @@ NN1_argset = ['0.001', '0.002', '0.003', '0.004', '0.005']
 NN2_argset = ['0.001', '0.002', '0.003', '0.004', '0.005']
 
 
-print ('-----------------------------------------Welcome-----------------------------------------------')
+print ('--------------------------------------Welcome to FalStar---------------------------------------')
 print ('*                                                                                             *')
-print ('*                                                    Z. Zhang, I. Hasuo, P. Arcaini           *')
+print ('*                                                                                             *')
 print ('*                                                                        April 2019           *')
 print ('-----------------------------------------------------------------------------------------------')
 
@@ -115,23 +115,26 @@ __speclist = []
 
 
 while True: 
-	speclist = raw_input('Please input the specification ID, use \';\' if more than 1 spec.\nSee examples below. \nAT1_1\nAT1_1^-2\nAT1_1;AT1_2\n---------------------------------\n')
+	print '-------------Step 1----------------'
+	speclist = raw_input('Please input the Spec ID, use \';\' if there are more than 1 spec.\nSee examples below: \nAT1_1\nAT1_1^-2\nAT1_1;AT1_2\n---------------------------------\n')
 
 	_speclist = speclist.strip().split(';')
 	__speclist = [_s.strip() for _s in _speclist]
 	if check_spec(__speclist):
+		print '---------------Done!----------------'
 		break
 	else:
 		print 'The format is wrong, please input again.\n'
 
 
-algorithm = raw_input('Please input the algorithm;use \';\' if more than 1 algorithm.\nThere are 3 algorithms in total, namely,\nBreach\nMAB_e\nMAB_u\n---------------------------------\n')
-
 
 while True:
+	print '---------------Step 2----------------'
+	algorithm = raw_input('Please input the algorithm;use \';\' if more than 1 algorithm.\nThere are 3 algorithms in total, namely,\nBreach\nMAB_e\nMAB_u\n---------------------------------\n')
 	_algorithm = algorithm.strip().split(';')
 	__algorithm = [_a.strip() for _a in _algorithm]
 	if check_algorithm(__algorithm):
+		print '-------------Done!---------------'
 		break
 	else:
 		print 'The format is wrong, please input again.\n'
@@ -139,11 +142,15 @@ while True:
 
 #repeating = '30'
 while True:
+	print '-------------Step 3---------------'
 	repeating = raw_input('Please input repeating times; Maximum is 30\n---------------------------------\n')
 	if check_repeat(repeating):
+		print '--------------Done!-----------------'
 		break
 	else:
 		print 'The format is wrong, please input again.\n'
+
+print '****************Please wait for the results*****************'
 
 sys_time = datetime.now().strftime("%Y%m%d%H%M%S")
 config_path = 'test/config/' + sys_time
