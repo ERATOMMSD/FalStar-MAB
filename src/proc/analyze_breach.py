@@ -16,7 +16,7 @@ with open(outfile,'w') as f:
 	#f.write(lines[0].strip()+'\n')
 		head = 'algorithm;specID;success rate (SR);time\n'
 		f.write(head)
-		print '-----------------------------------------\n'
+		print '--------------------------------------------------------------RESULT\n'
 		print head
 	
 		first_line = lines[0]
@@ -44,6 +44,7 @@ with open(outfile,'w') as f:
 				row = 'Breach;'+ specID + ';'+str(fal)+ '/' + _repeat +';'+str(time)#+';'+str(-1) + ';'+str(numsim)
 				print row + '\n'
 				f.write(row+'\n')
+				print '--------------------------------------------------------------------\n'
 				fal = 0
 				time = 0
 #		numsim = 0
