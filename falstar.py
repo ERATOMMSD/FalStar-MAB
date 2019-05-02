@@ -168,11 +168,24 @@ def check_algorithm(l):
 	return pass_check
 
 def check_repeat(r):
-	pass_check = True
-	if not re.match(r'[1-30]', r):
-		pass_check = False
-	
-	return pass_check
+	if r.strip().isdigit():
+		return True
+	else:
+		return False
+
+def display_result(rp):
+	filenames = os.listdir(rp)
+	i = 1
+#	print '************************************************************RESULT '+str(i) + '\n'
+	for filename in filenames:
+		if '.csv' in filename:
+			print '************************************************************RESULT '+str(i) + '\n'
+			with open(rp + '/' + filename, 'r') as res:
+				lines = res.readlines()
+				for line in lines:
+					print line + '\n'
+			print '********************************************************************'
+		i = i + 1
 
 spec_dict = {\
 	'AT1':'alw_[0,30]((gear[t] == 3 => speed[t] > #))',
@@ -276,6 +289,7 @@ if len(sys.argv) == 2:
 		
 		generate_config(conf_name, mdl, input_name, input_range, sp, phi_str, cp, tspan, repeating, parameters, algo)
 		run_script(conf_name, script_name, tmpresult_name, result_name)
+		
 
 	elif sys.argv[1] == 'exec': #branch 2
 		print '--------------------------------------------------------------------\n'
@@ -338,7 +352,7 @@ else: #main branch: no argument
     #repeating = '30'
 	while True:
 		print '-------------------------------Step 3-------------------------------'
-		repeating = raw_input('Please input the number of trials. Maximum is 30.\n--------------------------------------------------------------------\n')
+		repeating = raw_input('Please input the number of trials.\n--------------------------------------------------------------------\n')
 		if check_repeat(repeating):
 			print '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Done!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 			break
@@ -404,4 +418,5 @@ else: #main branch: no argument
 			generate_config(conf_name, mdl, input_name, input_range, sp, phi_str, cp, tspan, repeating, param, al)
 
 			run_script(conf_name, script_name, tmpresult_name, result_name)
-
+			
+	display_result(result_path)
