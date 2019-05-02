@@ -232,23 +232,22 @@ __speclist = []
 #read arguments from the commandline
 if len(sys.argv) == 2:
 	if sys.argv[1] == 'new': #branch 1
-		print '--------------------------------------------------------------------'
-		print 'Please make sure that you put the model in src/model/\n'
+		print '--------------------------------------------------------------------\n'
+		print 'Please make sure to put the model in src/model/\n'
+		print '--------------------------------------------------------------------\n'
 		mdl = raw_input('Please input the name of the model:\n')
-		input_n = raw_input('Please input the names of input signals, use \';\' if multiple:\n')
-		input_r = raw_input('Please input the ranges of each input signals, the format is \'lb ub\', and use \';\' if multiple:\n')
-		param = raw_input('Please input the parameters if applicable, the format is \'param=value\', and use \';\' if multiple:\n')
-
-
+		input_n = raw_input('Please input the names of input signals. Use \';\' if multiple:\nE.g., \'throttle;brake\'\n')
+		input_r = raw_input('Please input the ranges of each input signals.\nThe format is \'lb ub\', and use \';\' if multiple:\nE.g., 0 100;0 300\n')
+		param = raw_input('Please input the parameters of the model if applicable.\nThe format is \'p1=a\', a is a natural number. Use \';\' if multiple:\n')
 		sp = raw_input('Please input the specification ID:\n')
-		phi_str = raw_input('Please input the specification in STL [Donze CAV\'10]:\n')
+		phi_str = raw_input('Please input the specification in STL.Refer to [Donze CAV\'10]:\n')
 		
 		sim_time = raw_input('Please input the total time of simulation:\n')
 		cp = raw_input('Please input the number of control points:\n')
 
-		algo = raw_input('Please specify the algorithm:\n')
+		algo = raw_input('Please specify the algorithm.\nCandidates are Breach, MAB_u, and MAB_e.\n')
 		
-		repeating = raw_input('Please input repeating times:\n')
+		repeating = raw_input('Please input the number of trials:\n')
 		
 		sys_time = datetime.now().strftime("%Y%m%d%H%M%S")
 		config_path = 'test/config/' + sys_time
@@ -279,6 +278,7 @@ if len(sys.argv) == 2:
 		run_script(conf_name, script_name, tmpresult_name, result_name)
 
 	elif sys.argv[1] == 'exec': #branch 2
+		print '--------------------------------------------------------------------\n'
 		conf_name = raw_input('Please input the name of configuration file:\n')
 		_pathbase = conf_name.split('/')
 		pathbase = '/'.join(_pathbase[0:-1]) + '/'
