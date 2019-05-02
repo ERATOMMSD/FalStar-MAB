@@ -34,12 +34,12 @@ with open(outfile,'w') as f:
 #			spec = data[spec_idx]
 		
 			fal = fal + int(data[fal_idx])
-			time = (time + float(data[time_idx])) if int(data[fal_idx])==1 else time
+			time = (time + float(data[time_idx])) if int(data[fal_idx])==1 else (time + 600)
 #	    numsim = (numsim + int(data[5])) if int(data[2])==1 else numsim
 			if status == repeat:
 				status = 0
 		
-				time = (time/fal) if fal != 0 else -1
+				time = (time*1.0/repeat)
 #		numsim = (numsim/fal) if fal != 0 else -1
 				row = 'Breach;'+ specID + ';'+str(fal)+ '/' + _repeat +';'+str(time)#+';'+str(-1) + ';'+str(numsim)
 				print row + '\n'

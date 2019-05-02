@@ -37,11 +37,11 @@ with open(outfile,'w') as f:
 
 			valid = (int(data[fal_idx]) == 1) and (float(data[time_idx])<605)
 			fal = (fal + 1) if valid else fal
-			time = (time + float(data[time_idx])) if valid else time
+			time = (time + float(data[time_idx])) if valid else (time + 600)
 			#numsim = (numsim + int(data[7])) if valid else numsim
 			if status == repeat:
 				status = 0
-				time = (time/fal) if fal != 0 else -1
+				time = (time*1.0/repeat)
 				#numsim = (numsim/fal) if fal!=0 else -1
 				row = algorithm + ';' +specID + ';' + str(fal) +'/' + _repeat +';'+str(time)#+ ';' + str(numsim)
 				f.write(row+'\n')
