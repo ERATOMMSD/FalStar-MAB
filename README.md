@@ -22,7 +22,7 @@ e.g.: Breach;MAB_u
 
 - Operating system: Linux or MacOS;
 
-- Matlab version:  2017.
+- Matlab version: >= 2017.
 
 
 ## Installation
