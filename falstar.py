@@ -4,7 +4,7 @@ from datetime import datetime
 import re
 import sys
 
-
+matlab_path = 'matlab'
 
 algo_dict = {'Breach':'Breach','MAB_e':'Epsi','MAB_u':'UCB1'}
 
@@ -93,9 +93,9 @@ def run_script(conf_name, script_name, tmpresult_name, result_name):
 	repeating = extract_repeating(conf_name)
 	al = extract_algo(conf_name)
 	if al == 'Breach':
-		os.system('python src/test/breach_test.py ' + conf_name + ' ' + script_name)
+		os.system('python src/test/breach_test.py ' + conf_name + ' ' + script_name + ' ' + matlab_path)
 	else:
-		os.system('python src/test/gen_stltest.py ' + conf_name + ' ' + script_name)
+		os.system('python src/test/gen_stltest.py ' + conf_name + ' ' + script_name + ' ' + matlab_path)
 	os.system('chmod 744 ' + script_name)
 	print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Done!'+'\n'
 
@@ -175,17 +175,16 @@ def check_repeat(r):
 
 def display_result(rp):
 	filenames = os.listdir(rp)
-	i = 1
-#	print '************************************************************RESULT '+str(i) + '\n'
+#	i = 1
+	head = 'algorithm;specID;success rate (SR);time\n'
+	print head
+	print '**************************************************************RESULT'+ '\n'
 	for filename in filenames:
 		if '.csv' in filename:
-			print '************************************************************RESULT '+str(i) + '\n'
 			with open(rp + '/' + filename, 'r') as res:
 				lines = res.readlines()
-				for line in lines:
-					print line + '\n'
-			print '********************************************************************'
-		i = i + 1
+				print lines[1] + '\n'
+	print '********************************************************************'+ '\n'
 
 spec_dict = {\
 	'AT1':'alw_[0,30]((gear[t] == 3 => speed[t] > #))',
@@ -251,7 +250,7 @@ if len(sys.argv) == 2:
 		mdl = raw_input('Please input the name of the model:\n')
 		input_n = raw_input('Please input the names of input signals. Use \';\' if multiple:\nE.g., \'throttle;brake\'\n')
 		input_r = raw_input('Please input the ranges of each input signals.\nThe format is \'lb ub\', and use \';\' if multiple:\nE.g., 0 100;0 300\n')
-		param = raw_input('Please input the parameters of the model if applicable.\nThe format is \'p1=a\', a is a natural number. Use \';\' if multiple:\n')
+		param = raw_input('Please input the parameters of the model if applicable.\nThe format is \'p1=v\', v is a real number. Use \';\' if multiple:\n')
 		sp = raw_input('Please input the specification ID:\n')
 		phi_str = raw_input('Please input the specification in STL.Refer to [Donze CAV\'10]:\n')
 		

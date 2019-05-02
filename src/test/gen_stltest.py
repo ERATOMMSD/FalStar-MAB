@@ -22,6 +22,7 @@ status = 0
 
 conf_file = sys.argv[1]
 script_file = sys.argv[2]
+matlab_path = sys.argv[3]
 
 with open(conf_file, 'r') as conf:
 	for line in conf.readlines():
@@ -84,7 +85,7 @@ for ph in phi_str:
 			with open(script_file, 'w')	as bm:
 				bm.write('#!/bin/sh\n')
 				bm.write('csv=$1\n')
-				bm.write('matlab -nodesktop -nosplash <<EOF\n')
+				bm.write(matlab_path +' -nodesktop -nosplash <<EOF\n')
 				bm.write('clear;\n')
 			#	for ap in addpath:
 				bm.write('brpath_i = which(\'InitBreach\');\n')
