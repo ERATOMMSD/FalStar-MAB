@@ -44,7 +44,7 @@ sanity check: type 'matlab' in commandline and you can open Matlab
 
 1. Open Matlab;
 
-2. clone Breach from https://github.com/decyphir/breach, and reset it to version 1.2.13, and name it as 'breach_1213' 
+2. clone Breach from https://github.com/decyphir/breach, and reset it to version 1.2.13. Put it under 'src/' and name it as 'breach_1213'.
 
 3. move to folder “FalStar-MAB/src/breach 1213/” of the cloned repository (either
 from command line or using the browsing facilities of the GUI);
@@ -56,6 +56,9 @@ external/changing-default-compiler.html
 
 5. run ’InstallBreach’
 
+### Installing FalStar-MAB
+
+1. run 'sh Install' or copy the related files manually.
 
 # Usage:
 ## Reproducing the experiments of the paper
