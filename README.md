@@ -44,15 +44,17 @@ sanity check: type 'matlab' in commandline and you can open Matlab
 
 1. Open Matlab;
 
-2. move to folder “FalStar-MAB/src/breach 1213/” of the cloned repository (either
+2. clone Breach from https://github.com/decyphir/breach, and reset it to version 1.2.13, and name it as 'breach_1213' 
+
+3. move to folder “FalStar-MAB/src/breach 1213/” of the cloned repository (either
 from command line or using the browsing facilities of the GUI);
 
-3. setup a C/C++ compiler using command ’mex -setup’
+4. setup a C/C++ compiler using command ’mex -setup’
 – Please check here for instructions on how to select the compiler for different
 operating systems: https://www.mathworks.com/help/matlab/matlab_
 external/changing-default-compiler.html
 
-4. run ’InstallBreach’
+5. run ’InstallBreach’
 
 
 # Usage:
